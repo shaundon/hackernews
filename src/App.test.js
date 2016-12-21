@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
 import App from './App';
 import { Search, Button, Table } from './App';
@@ -43,7 +44,12 @@ describe('Table', () => {
     ]
   };
 
-  const el = <Table {...props} />;
+  let el = <Table {...props} />;
   it('renders', () => render(el));
   test('snapshots', () => checkSnapshot(el));
+
+  it('shows two items in list', () => {
+    el = shallow(el);
+    expect(el.find('.table-row').length).toBe(2);
+  })
 });
